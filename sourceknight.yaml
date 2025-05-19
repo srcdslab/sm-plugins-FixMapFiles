@@ -10,7 +10,7 @@ project:
       - source: /addons
         dest: /addons
 
-  root: /src
+  root: /
   output: /addons/sourcemod/plugins
   targets:
     - FixMapFiles
