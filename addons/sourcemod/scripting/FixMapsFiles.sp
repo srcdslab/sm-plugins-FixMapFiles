@@ -9,7 +9,7 @@ public Plugin myinfo =
 	name = "Maps files fixer",
 	author = ".Rushaway",
 	description = "Downloads fixed files for multiples map",
-	version = "1.0.0",
+	version = "1.1.0",
 	url = ""
 };
 
@@ -21,6 +21,10 @@ public void OnMapStart()
 	{
 		ApplyParanoidFix();
 		ApplyGargantuaFix();
+	}
+	else if (strcmp(sCurrentMap, "ze_sky_athletic_adv_v9_12s", false) == 0)
+	{
+		ApplySkyAthleticFix();
 	}
 	else if (strcmp(sCurrentMap, "ze_avalanche_reboot_beta7", false) == 0 || strcmp(sCurrentMap, "ze_l0v0l_v1_4", false) == 0 ||
 		strcmp(sCurrentMap, "ze_mountain_escape_v5_zy", false) == 0 || strcmp(sCurrentMap, "ze_Pidaras_v1_4fix3", false) == 0 ||
@@ -61,4 +65,32 @@ stock void ApplyGargantuaFix()
 	AddFileToDownloadsTable("models/garg_fix_2025.phy");
 	AddFileToDownloadsTable("models/garg_fix_2025.sw.vtx");
 	AddFileToDownloadsTable("models/garg_fix_2025.vvd");
+}
+
+stock void ApplySkyAthleticFix()
+{
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bbk.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bbk.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bdn.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bdn.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bft.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bft.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bk.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bk.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02blf.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02blf.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02brt.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02brt.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bup.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02bup.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02dn.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02dn.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02ft.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02ft.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02lf.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02lf.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02rt.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02rt.vtf");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02up.vmt");
+	AddFileToDownloadsTable("materials/skybox/sky_csgo_night02up.vtf");
 }
