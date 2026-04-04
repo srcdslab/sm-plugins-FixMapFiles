@@ -4,17 +4,29 @@
 #include <sourcemod>
 #include <sdktools>
 
+// Uncomment to enable lilac fix for ze_collective_css
+//#define ENABLE_COLLECTIVE_MODULE
+
+#if defined ENABLE_COLLECTIVE_MODULE
+bool g_bCollective = false;
+#include "modules/ze_collective"
+#endif
+
 public Plugin myinfo = 
 {
 	name = "Maps files fixer",
 	author = ".Rushaway",
 	description = "Downloads fixed files for multiples map",
-	version = "1.1.0",
+	version = "1.2.0",
 	url = ""
 };
 
 public void OnMapStart()
 {
+#if defined ENABLE_COLLECTIVE_MODULE
+	g_bCollective = false;
+#endif
+
 	char sCurrentMap[256];
 	GetCurrentMap(sCurrentMap, sizeof(sCurrentMap));
 	if (strcmp(sCurrentMap, "ze_paranoid_rezurrection_v11_9", false) == 0)
@@ -32,6 +44,12 @@ public void OnMapStart()
 	{
 		ApplyGargantuaFix();
 	}
+	#if defined ENABLE_COLLECTIVE_MODULE
+	else if (strncmp(sCurrentMap, "ze_collective_css", 17, false) == 0)
+	{
+		g_bCollective = true;
+	}
+#endif
 }
 
 stock void ApplyParanoidFix()
