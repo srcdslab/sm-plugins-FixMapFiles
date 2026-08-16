@@ -11,16 +11,15 @@ This repository contains a SourceMod plugin for Counter-Strike: Source that auto
 - `addons/sourcemod/scripting/FixMapsFiles.sp` - Main plugin source code
 - `materials/` - Game texture and material files (.vmt, .vtf)
 - `models/` - Game model files (.mdl, .vtx, .phy, .vvd)
-- `sourceknight.yaml` - Build configuration for SourceKnight build system
-- `.github/workflows/ci.yml` - Automated build, test, and release pipeline
+- `.github/workflows/ci.yml` - Automated build, test, and release pipeline (native GitHub Actions, uses `rumblefrog/setup-sp` to install the SourcePawn compiler)
 
 ## Development Environment
 
 ### Language & Platform
 - **Language**: SourcePawn (Source engine scripting language)
-- **Platform**: SourceMod 1.11+ (minimum required version defined in sourceknight.yaml)
+- **Platform**: SourceMod 1.12+
 - **Target Game**: Counter-Strike: Source
-- **Build Tool**: SourceKnight build system
+- **Build Tool**: Native GitHub Actions workflow (`rumblefrog/setup-sp` + `spcomp`)
 
 ### Required Headers
 All SourcePawn files must include these pragmas at the top:
@@ -129,25 +128,25 @@ When adding new assets:
 
 ## Build System
 
-### SourceKnight Configuration
-The `sourceknight.yaml` file defines:
-- SourceMod version dependency (currently 1.11.0-git6934)
-- Build targets and output directories
-- Project structure and dependencies
+### GitHub Actions Configuration
+The `.github/workflows/ci.yml` file defines:
+- SourceMod compiler version (currently 1.12.x, via `rumblefrog/setup-sp`)
+- Build, packaging, tagging and release steps
+- Package contents (compiled `.smx` plus the `materials/` and `models/` asset trees bundled under `common/`)
 
 ### Build Process
 ```bash
-# Build using SourceKnight (handled by CI)
-sourceknight build
+# Build (handled by CI, from addons/sourcemod/scripting)
+spcomp -o ../plugins/FixMapsFiles.smx FixMapsFiles.sp
 
 # Manual compilation (if needed)
-spcomp -i addons/sourcemod/scripting/include addons/sourcemod/scripting/FixMapsFiles.sp
+spcomp -i /path/to/sourcemod/include addons/sourcemod/scripting/FixMapsFiles.sp
 ```
 
 ### Local Development Setup
-1. Install SourceMod compiler (spcomp)
+1. Install SourceMod compiler (spcomp), matching the version used in `.github/workflows/ci.yml`
 2. Set up include paths for SourceMod headers
-3. Use SourceKnight for automated builds
+3. Compile with `spcomp` directly; CI runs the same command on every push/PR
 
 ## Testing and Validation
 
@@ -175,7 +174,7 @@ spcomp -i addons/sourcemod/scripting/include addons/sourcemod/scripting/FixMapsF
 ## CI/CD Pipeline
 
 ### Automated Workflows
-- **Build**: Compiles plugin using SourceKnight on Ubuntu 24.04
+- **Build**: Compiles plugin using `spcomp` (via `rumblefrog/setup-sp`) on Ubuntu
 - **Package**: Creates release package with plugin and asset files
 - **Release**: Automatically creates GitHub releases with built artifacts
 
@@ -207,7 +206,7 @@ Release packages include:
 ### Maintenance
 - Keep supported map list updated in both code and README
 - Verify asset file integrity when adding new maps
-- Update SourceMod version in sourceknight.yaml as needed
+- Update the SourceMod compiler version in `.github/workflows/ci.yml` as needed
 - Monitor for new map versions that may need updated fixes
 
 ## Code Examples
