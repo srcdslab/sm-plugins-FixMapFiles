@@ -17,7 +17,7 @@ public Plugin myinfo =
 	name = "Maps files fixer",
 	author = ".Rushaway",
 	description = "Downloads fixed files for multiples map",
-	version = "1.2.0",
+	version = "1.2.1",
 	url = ""
 };
 
